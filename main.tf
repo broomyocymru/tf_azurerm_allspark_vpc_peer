@@ -5,3 +5,11 @@ resource "azurerm_virtual_network_peering" "primary" {
   remote_virtual_network_id     = "${var.secondary_vpc["vnet_id"]}"
   allow_virtual_network_access  = "${var.bidirectional}"
 }
+
+resource "azurerm_virtual_network_peering" "secondary" {
+  name                          = "peer_${var.secondary_vpc["vnet_name"]}_${var.primary_vpc["vnet_name"]}"
+  resource_group_name           = "${var.secondary_vpc["resource_group_name"]}"
+  virtual_network_name          = "${var.secondary_vpc["vnet_name"]}"
+  remote_virtual_network_id     = "${var.primary_vpc["vnet_id"]}"
+  allow_virtual_network_access  = "${var.bidirectional}"
+}
